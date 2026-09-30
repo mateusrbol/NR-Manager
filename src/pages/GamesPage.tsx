@@ -6,15 +6,6 @@ import type { Game } from "../lib/types";
 import { GameCard } from "../components/GameCard";
 import { Modal } from "../components/Modal";
 
-type Filter = "all" | "compat" | "incompat" | "active";
-
-const filters: { id: Filter; label: string }[] = [
-  { id: "all", label: "Todos" },
-  { id: "compat", label: "Compatíveis" },
-  { id: "incompat", label: "Incompatíveis" },
-  { id: "active", label: "Com mod ativo" },
-];
-
 export function GamesPage() {
   const games = useStore((s) => s.games);
   const gpu = useStore((s) => s.gpu);
@@ -25,22 +16,14 @@ export function GamesPage() {
   const removeMod = useStore((s) => s.removeMod);
   const toast = useStore((s) => s.toast);
 
-  const [filter, setFilter] = useState<Filter>("all");
   const [confirm, setConfirm] = useState<{ game: Game; action: "apply" | "remove" } | null>(
     null
   );
 
-  const visible = useMemo(() => {
-    let list = [...games];
-    if (filter === "compat") {
-      list = list.filter((g) => g.compat === "compatible" || g.compat === "probable");
-    } else if (filter === "incompat") {
-      list = list.filter((g) => g.compat === "incompatible");
-    } else if (filter === "active") {
-      list = list.filter((g) => g.modInstalled);
-    }
-    return list.sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
-  }, [games, filter]);
+  const visible = useMemo(
+    () => [...games].sort((a, b) => a.name.localeCompare(b.name, "pt-BR")),
+    [games]
+  );
 
   const addManual = async () => {
     try {
@@ -98,21 +81,8 @@ export function GamesPage() {
             {games.length} jogo(s) · {games.filter((g) => g.modInstalled).length} com mod ativo
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="flex rounded-lg bg-graphite-800/80 p-1 ring-1 ring-white/5">
-            {filters.map((f) => (
-              <button
-                key={f.id}
-                onClick={() => setFilter(f.id)}
-                className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
-                  filter === f.id ? "bg-amd/90 text-white" : "text-slate-300 hover:text-white"
-                }`}
-              >
-                {f.label}
-              </button>
-            ))}
-          </div>
-          <button className="btn-ghost" onClick={addManual} title="Adicionar pasta de jogo">
+          <div className="flex items-center gap-2">
+            <button className="btn-ghost" onClick={addManual} title="Adicionar pasta de jogo">
             <FolderPlus size={16} /> Pasta
           </button>
           <button className="btn-ghost" onClick={addManualExe} title="Adicionar por .exe">

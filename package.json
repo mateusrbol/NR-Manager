@@ -1,7 +1,7 @@
 {
   "name": "nr-manager",
   "private": true,
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "NR Manager - gerenciador do mod DLSS 5 Neural Rendering on AMD",
   "type": "module",
   "scripts": {

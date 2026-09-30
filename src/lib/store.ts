@@ -82,6 +82,8 @@ export const useStore = create<AppStore>((set, get) => ({
         api.listCachedReleases(),
       ]);
       set({ settings, gpu, appInfo, games, logs, cached, loading: false });
+      // Reavalia a compatibilidade (compat.json) para os cards mostrarem o status real.
+      void get().refreshCompat();
       // Verificacao automatica de atualizacoes no GitHub (configuravel).
       if (settings.checkUpdatesOnStart) {
         try {
