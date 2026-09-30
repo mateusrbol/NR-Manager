@@ -1,0 +1,12 @@
+{
+  "repoUrl": "https://github.com/danielblnc/DLSS-NR-on-AMD",
+  "cacheDir": "",
+  "dlssnrDllPath": "",
+  "checkUpdatesOnStart": true,
+  "startWithWindows": false,
+  "theme": "dark",
+  "pinnedVersion": null,
+  "customSetupPath": "",
+  "setupSilentArgs": "",
+  "language": "pt-BR"
+}

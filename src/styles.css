@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    @apply bg-transparent text-slate-100 font-sans antialiased overflow-hidden;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2e36;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3f49;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@layer components {
+  .app-shell {
+    @apply h-full w-full rounded-xl2 overflow-hidden flex text-slate-100;
+    background: radial-gradient(1200px 600px at 80% -10%, rgba(237, 28, 36, 0.10), transparent 60%),
+      linear-gradient(160deg, #16181c 0%, #0e0f11 55%, #0b0c0e 100%);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 24px 70px rgba(0, 0, 0, 0.65);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply btn text-white shadow-glow;
+    background-image: linear-gradient(180deg, #ed1c24, #b0131a);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background-image: linear-gradient(180deg, #ff4b52, #d0181f);
+  }
+  .btn-ghost {
+    @apply btn bg-graphite-700/70 hover:bg-graphite-600 text-slate-200 border border-white/5;
+  }
+  .btn-danger {
+    @apply btn text-status-bad border;
+    background: rgba(255, 92, 92, 0.12);
+    border-color: rgba(255, 92, 92, 0.3);
+  }
+  .btn-danger:hover:not(:disabled) {
+    background: rgba(255, 92, 92, 0.22);
+  }
+  .btn-sm {
+    @apply px-2.5 py-1.5 text-xs;
+  }
+
+  .card {
+    @apply rounded-xl2 bg-graphite-800/80 border border-white/5 shadow-card;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold tracking-wide;
+  }
+
+  .input {
+    @apply w-full rounded-lg bg-graphite-950/70 border border-white/10 px-3 py-2 text-sm text-slate-100 outline-none transition;
+  }
+  .input:focus {
+    @apply border-amd/70 ring-1 ring-amd/40;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-300 cursor-pointer transition-colors;
+  }
+  .nav-item:hover {
+    @apply bg-white/5 text-white;
+  }
+  .nav-item-active {
+    @apply text-white;
+    background: linear-gradient(90deg, rgba(237, 28, 36, 0.22), transparent);
+    border-left: 2px solid #ed1c24;
+  }
+
+  .label {
+    @apply text-xs font-medium uppercase tracking-wider text-slate-400;
+  }
+
+  .win-btn {
+    @apply h-8 w-10 inline-flex items-center justify-center rounded-md text-slate-400 transition-colors;
+  }
+  .win-btn:hover {
+    @apply bg-white/10 text-white;
+  }
+  .win-btn-close:hover {
+    background: #ed1c24;
+    color: #fff;
+  }
+
+  .game-card {
+    @apply card overflow-hidden cursor-pointer transition-all duration-200;
+  }
+  .game-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(237, 28, 36, 0.25);
+  }
+}

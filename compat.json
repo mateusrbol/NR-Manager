@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-29",
+  "source": "https://github.com/danielblnc/DLSS-NR-on-AMD",
+  "notes": "Lista editavel. status: compatible | probable | untested | incompatible. graphicsApi: dx12 | vulkan | dx11 | unknown. A deteccao heuristica (FSR/DX12 na pasta do jogo) pode sobrescrever 'untested' por 'probable'.",
+  "entries": [
+    {
+      "name": "Cyberpunk 2077",
+      "aliases": ["Cyberpunk 2077"],
+      "appIds": {
+        "steam": "1091500",
+        "gog": "1423049311",
+        "epic": "Cyberpunk2077"
+      },
+      "graphicsApi": "dx12",
+      "exeSubdir": "bin\\x64",
+      "exeName": "Cyberpunk2077.exe",
+      "status": "compatible",
+      "fsr": true,
+      "antiCheat": null,
+      "notes": "Testado oficialmente pelo autor do mod. No jogo, ative FSR (qualquer modo) e use a tecla End para abrir o overlay."
+    },
+    {
+      "name": "Grand Theft Auto V Enhanced",
+      "aliases": ["Grand Theft Auto V Enhanced", "GTA V Enhanced", "GTAV Enhanced"],
+      "appIds": {
+        "steam": "3240220",
+        "epic": "GrandTheftAutoVEnhanced"
+      },
+      "graphicsApi": "dx12",
+      "exeSubdir": "",
+      "exeName": "GTA5_Enhanced.exe",
+      "status": "compatible",
+      "fsr": true,
+      "antiCheat": "BattlEye (somente GTA Online)",
+      "notes": "Testado oficialmente pelo autor. Use apenas no modo single-player/offline; o BattlEye do GTA Online pode bloquear a DLL modificada."
+    },
+    {
+      "name": "Red Dead Redemption 2",
+      "aliases": ["Red Dead Redemption 2", "RDR2"],
+      "appIds": {
+        "steam": "1174180",
+        "epic": "RedDeadRedemption2"
+      },
+      "graphicsApi": "vulkan",
+      "exeSubdir": "",
+      "exeName": "RDR2.exe",
+      "status": "incompatible",
+      "fsr": true,
+      "antiCheat": "Rockstar (somente RDR Online)",
+      "notes": "Vulkan ainda nao e suportado pelo mod (planejado para o futuro)."
+    },
+    {
+      "name": "Counter-Strike 2",
+      "aliases": ["Counter-Strike 2", "CS2"],
+      "appIds": {
+        "steam": "730"
+      },
+      "graphicsApi": "dx11",
+      "exeSubdir": "game\\bin\\win64",
+      "exeName": "cs2.exe",
+      "status": "incompatible",
+      "fsr": false,
+      "antiCheat": "VAC / Valve Anti-Cheat",
+      "notes": "Usa DX11 e possui anti-cheat. Nao use."
+    },
+    {
+      "name": "Baldur's Gate 3",
+      "aliases": ["Baldur's Gate 3", "BG3"],
+      "appIds": {
+        "steam": "1086940",
+        "gog": "1456460669"
+      },
+      "graphicsApi": "vulkan",
+      "exeSubdir": "bin",
+      "exeName": "bg3_dx11.exe",
+      "status": "incompatible",
+      "fsr": true,
+      "antiCheat": null,
+      "notes": "Renderizador padrao e Vulkan; o mod ainda nao suporta Vulkan."
+    },
+    {
+      "name": "Marvel's Spider-Man Remastered",
+      "aliases": ["Marvel's Spider-Man Remastered", "Spider-Man Remastered"],
+      "appIds": {
+        "steam": "1817070",
+        "epic": "MarvelsSpiderManRemastered"
+      },
+      "graphicsApi": "dx12",
+      "exeSubdir": "",
+      "exeName": "Spider-Man.exe",
+      "status": "probable",
+      "fsr": true,
+      "antiCheat": null,
+      "notes": "DX12 com FSR; aguardando validacao da comunidade."
+    }
+  ]
+}
