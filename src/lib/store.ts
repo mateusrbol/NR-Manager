@@ -11,7 +11,7 @@ import type {
   Settings,
 } from "./types";
 
-export type Page = "games" | "detail" | "mod" | "settings" | "logs";
+export type Page = "games" | "detail" | "mod" | "tutorial" | "settings" | "logs";
 
 export interface Toast {
   id: number;

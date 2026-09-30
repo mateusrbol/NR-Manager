@@ -1,10 +1,11 @@
 import type { ElementType } from "react";
-import { Gamepad2, PackageSearch, Settings, ScrollText, Zap } from "lucide-react";
+import { BookOpen, Gamepad2, PackageSearch, Settings, ScrollText, Zap } from "lucide-react";
 import { useStore, type Page } from "../lib/store";
 
 const items: { id: Page; label: string; icon: ElementType }[] = [
   { id: "games", label: "Jogos", icon: Gamepad2 },
   { id: "mod", label: "Mod", icon: PackageSearch },
+  { id: "tutorial", label: "Tutorial", icon: BookOpen },
   { id: "settings", label: "Configurações", icon: Settings },
   { id: "logs", label: "Logs", icon: ScrollText },
 ];

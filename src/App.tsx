@@ -9,6 +9,7 @@ import { ProgressBar } from "./components/ProgressBar";
 import { GamesPage } from "./pages/GamesPage";
 import { GameDetail } from "./pages/GameDetail";
 import { ModPage } from "./pages/ModPage";
+import { TutorialPage } from "./pages/TutorialPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { LogsPage } from "./pages/LogsPage";
 
@@ -65,6 +66,8 @@ export default function App() {
                 <GameDetail />
               ) : page === "mod" ? (
                 <ModPage />
+              ) : page === "tutorial" ? (
+                <TutorialPage />
               ) : page === "settings" ? (
                 <SettingsPage />
               ) : (
