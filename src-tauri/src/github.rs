@@ -133,10 +133,11 @@ pub async fn fetch_releases(
 
     let status = resp.status();
     if status == reqwest::StatusCode::NOT_MODIFIED {
-        logger.info("Feed do GitHub nao mudou (304). Usando cache.");
+        // 304 = o GitHub confirmou que nosso conteudo esta atualizado; seguimos online.
+        logger.info("Feed do GitHub nao mudou (304). Cache em dia.");
         let text = cached_disk.ok_or_else(|| AppError::msg("Cache ausente apos 304."))?;
         let list = parse_releases(&text)?;
-        return Ok((list, "cache".into(), None));
+        return Ok((list, "live".into(), None));
     }
 
     if status == reqwest::StatusCode::FORBIDDEN || status == reqwest::StatusCode::TOO_MANY_REQUESTS {
