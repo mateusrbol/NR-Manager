@@ -36,7 +36,7 @@ export function TutorialPage() {
           <Requirement
             icon={Cpu}
             title="Placa AMD RDNA3 ou RDNA4"
-            text="Ex.: RX 7000 / RX 9000. Placas mais antigas não são suportadas."
+            text="Ex.: RX 7000 / RX 9000 + driver Adrenalin 26.1.1 ou mais novo. O jogo precisa ser DirectX 12 e ter opção de FSR."
           />
           <Requirement
             icon={FolderSearch}
@@ -129,6 +129,83 @@ export function TutorialPage() {
               </>
             }
           />
+        </div>
+      </div>
+
+      {/* Ativar no jogo */}
+      <div className="card mb-5 p-5">
+        <h2 className="mb-4 flex items-center gap-2 text-sm font-semibold text-white">
+          <Gamepad2 size={16} className="text-amd" /> Ativar no jogo (a parte que importa)
+        </h2>
+        <p className="mb-4 text-xs text-slate-400">
+          O mod já foi aplicado pelo NR Manager. Agora é dentro do jogo que ele liga:
+        </p>
+        <div className="space-y-4">
+          <Step
+            n={1}
+            title="Abra o jogo normalmente"
+            text={
+              <>
+                Abra pelo Steam / Epic / GOG / Xbox como você sempre faz. O mod já está nos arquivos
+                do jogo.
+              </>
+            }
+          />
+          <Step
+            n={2}
+            title="Nas opções de gráficos, ATIVE o FSR"
+            text={
+              <>
+                Vá em <b>Configurações → Gráficos / Vídeo</b> e ligue o <b>FSR</b> (FSR 3 ou FSR 4,
+                qualquer modo de qualidade ou <b>FSRAA</b>). É o FSR que "alimenta" o mod — se ficar
+                desligado, o Neural Rendering não roda. Não procure uma opção "DLSS": o jogo usa o
+                FSR dele.
+              </>
+            }
+          />
+          <Step
+            n={3}
+            title="Aperte END para abrir o overlay do mod"
+            text={
+              <>
+                Com o jogo aberto, pressione <Key>End</Key>. Aparece o menu do mod por cima do jogo.
+                Aperte <Key>End</Key> de novo para fechar.
+              </>
+            }
+          />
+          <Step
+            n={4}
+            title="Ajuste do jeito que gostar"
+            text={
+              <>
+                Use as <b>setas ← ↑ → ↓</b> para navegar e <b>Enter</b> para alternar as opções.
+              </>
+            }
+          />
+        </div>
+
+        <div className="mt-4 rounded-lg bg-graphite-950/50 p-3">
+          <div className="mb-2 text-xs font-semibold text-slate-200">
+            O que dá pra ajustar no overlay (<Key>End</Key>)
+          </div>
+          <ul className="space-y-1 text-xs text-slate-400">
+            <li>
+              <b className="text-slate-300">Mode:</b> inline ou async — usado apenas para{" "}
+              <b>photo mode</b>.
+            </li>
+            <li>
+              <b className="text-slate-300">Tone intensity:</b> intensidade de tonalidade.
+            </li>
+            <li>
+              <b className="text-slate-300">Structure intensity:</b> intensidade de estrutura.
+            </li>
+            <li>
+              <b className="text-slate-300">Skin structure:</b> estrutura de pele.
+            </li>
+          </ul>
+          <p className="mt-2 text-[11px] text-slate-500">
+            Seleção de modelo está nos planos dos autores do mod.
+          </p>
         </div>
       </div>
 
@@ -232,5 +309,13 @@ function Bullet({ children }: { children: ReactNode }) {
       <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-status-ok" />
       <span>{children}</span>
     </li>
+  );
+}
+
+function Key({ children }: { children: ReactNode }) {
+  return (
+    <kbd className="rounded border border-white/15 bg-white/10 px-1.5 py-0.5 font-mono text-[11px] text-slate-200">
+      {children}
+    </kbd>
   );
 }
