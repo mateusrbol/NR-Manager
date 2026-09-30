@@ -1,6 +1,6 @@
 [package]
 name = "nr-manager"
-version = "0.1.0"
+version = "0.1.7"
 description = "NR Manager - gerenciador do mod DLSS 5 Neural Rendering on AMD"
 authors = ["NR Manager"]
 edition = "2021"

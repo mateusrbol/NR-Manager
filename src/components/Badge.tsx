@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { ShieldCheck, ShieldAlert, ShieldQuestion, ShieldX } from "lucide-react";
 import { compatClasses, compatLabel } from "../lib/format";
 
-export function CompatBadge({ status }: { status: string }) {
+export function CompatBadge({ status, title }: { status: string; title?: string }) {
   const Icon =
     status === "compatible"
       ? ShieldCheck
@@ -12,7 +12,7 @@ export function CompatBadge({ status }: { status: string }) {
       ? ShieldX
       : ShieldAlert;
   return (
-    <span className={`badge ${compatClasses(status)}`}>
+    <span title={title} className={`badge ${compatClasses(status)}`}>
       <Icon size={12} />
       {compatLabel(status)}
     </span>

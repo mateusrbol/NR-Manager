@@ -59,7 +59,21 @@ pub fn enrich(game: &mut Game, compat: &[CompatEntry], logger: &Logger) {
     }
 
     // Localiza o executavel / pasta do mod.
-    if game.exe_path.is_none() || game.mod_dir.is_none() {
+    // Reavalia tambem quando o exe atual esta na raiz da instalacao: jogos UE
+    // costumam ter um stub na raiz e o exe real em <Jogo>\Binaries\Win64\.
+    let exe_at_root = game
+        .exe_path
+        .as_ref()
+        .map(|p| {
+            let exe = Path::new(p);
+            !exe.exists()
+                || util::path_eq(
+                    exe.parent().unwrap_or(Path::new("")),
+                    Path::new(&game.install_dir),
+                )
+        })
+        .unwrap_or(true);
+    if game.exe_path.is_none() || game.mod_dir.is_none() || exe_at_root {
         locate_executable(game, entry, logger);
     }
 
@@ -179,13 +193,13 @@ pub fn find_executable(install: &Path, game_name: &str) -> Option<PathBuf> {
     let bad_dirs = [
         "redist", "_commonredist", "directx", "dotnet", "vcredist", "prereq", "support",
         "tools", "mods", "crashreporter", "easyanticheat", "battleye", "eac", "anticheat",
-        "engine\\extras", ".nrmanager",
+        "engine", "content", "movies", "saved", ".nrmanager",
     ];
     let name_norm = util::norm_name(game_name);
     let mut best: Option<(i64, PathBuf)> = None;
 
     for entry in WalkDir::new(install)
-        .max_depth(3)
+        .max_depth(5)
         .follow_links(false)
         .into_iter()
         .filter_entry(|e| {
@@ -255,11 +269,27 @@ pub fn detect_fsr(mod_dir: &Path, install_dir: &Path) -> (bool, bool, bool) {
     let mut fsr = false;
     let mut dx12 = false;
     let mut vk = false;
+    // Pastas de assets que nao contem DLLs de runtime (evita varredura pesada).
+    let skip_dirs = [
+        "content", "paks", "movies", "saved", "shadercache", "cache", "extras",
+    ];
     for dir in [mod_dir, install_dir] {
         if !dir.exists() {
             continue;
         }
-        for entry in WalkDir::new(dir).max_depth(2).into_iter().flatten() {
+        for entry in WalkDir::new(dir)
+            .max_depth(5)
+            .into_iter()
+            .filter_entry(|e| {
+                if e.file_type().is_dir() {
+                    let n = e.file_name().to_string_lossy().to_lowercase();
+                    !skip_dirs.contains(&n.as_str())
+                } else {
+                    true
+                }
+            })
+            .flatten()
+        {
             if !entry.file_type().is_file() {
                 continue;
             }
@@ -276,6 +306,9 @@ pub fn detect_fsr(mod_dir: &Path, install_dir: &Path) -> (bool, bool, bool) {
             if n == "amd_fidelityfx_dx12.dll" || n == "amd_fidelityfx_loader_dx12.dll" {
                 dx12 = true;
             }
+        }
+        if fsr && dx12 {
+            break;
         }
     }
     (fsr, dx12, vk)
@@ -294,7 +327,7 @@ pub fn detect_anti_cheat(install_dir: &Path) -> Option<String> {
         ("bedaisy", "BattlEye"),
         ("vgc.exe", "Riot Vanguard"),
     ];
-    for entry in WalkDir::new(install_dir).max_depth(3).into_iter().flatten() {
+    for entry in WalkDir::new(install_dir).max_depth(4).into_iter().flatten() {
         let n = entry.file_name().to_string_lossy().to_lowercase();
         if n == MANIFEST_FILE_NAME {
             continue;

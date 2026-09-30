@@ -59,7 +59,7 @@ export function GameCard({
           </h3>
         </div>
         <div className="mb-3 flex items-center justify-between">
-          <CompatBadge status={game.compat} />
+          <CompatBadge status={game.compat} title={game.compatNote || undefined} />
           <Toggle
             checked={game.modInstalled}
             onChange={() => onToggle(game)}

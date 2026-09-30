@@ -6,11 +6,12 @@ import type { Game } from "../lib/types";
 import { GameCard } from "../components/GameCard";
 import { Modal } from "../components/Modal";
 
-type Filter = "all" | "compat" | "active";
+type Filter = "all" | "compat" | "incompat" | "active";
 
 const filters: { id: Filter; label: string }[] = [
   { id: "all", label: "Todos" },
   { id: "compat", label: "Compatíveis" },
+  { id: "incompat", label: "Incompatíveis" },
   { id: "active", label: "Com mod ativo" },
 ];
 
@@ -33,6 +34,8 @@ export function GamesPage() {
     let list = [...games];
     if (filter === "compat") {
       list = list.filter((g) => g.compat === "compatible" || g.compat === "probable");
+    } else if (filter === "incompat") {
+      list = list.filter((g) => g.compat === "incompatible");
     } else if (filter === "active") {
       list = list.filter((g) => g.modInstalled);
     }
